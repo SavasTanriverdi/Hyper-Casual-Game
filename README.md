@@ -143,9 +143,3 @@ public class Mover : MonoBehaviour
 ## Requirements
 - Unity 2020.3 or later
 - .NET Framework 4.7.1 or later
-
-## License
-This project is licensed under the MIT License.
-```
-
-This `README.md` provides an overview of the project, descriptions of the scripts, and instructions on how to use the project.
