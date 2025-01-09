@@ -22,6 +22,13 @@ public class FalseVideo : MonoBehaviour
     }
 }
 ```
+## Screenshots
+
+![Ekran görüntüsü 2025-01-09 132857](https://github.com/user-attachments/assets/28368a19-10e7-4a25-b407-94395968e0ab)
+![Ekran görüntüsü 2025-01-09 132852](https://github.com/user-attachments/assets/712fd6bd-5abc-4840-ad8e-4ca6ca4354ba)
+![Ekran görüntüsü 2025-01-09 132840](https://github.com/user-attachments/assets/732b306b-987a-42c2-9a53-61d9bfbeb35b)
+![Ekran görüntüsü 2025-01-09 132830](https://github.com/user-attachments/assets/9130c522-fbca-416a-afd8-a73de73a3c6c)
+![Ekran görüntüsü 2025-01-09 132822](https://github.com/user-attachments/assets/c0e945cf-ae1e-4907-bb8f-9d526a7d887d)
 
 ### FlyAtPlayer.cs
 This script makes an object fly towards the player and destroys it when it reaches the player.
