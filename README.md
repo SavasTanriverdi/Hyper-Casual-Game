@@ -1,61 +1,75 @@
 ```markdown
-# Hyper Casual Game
+# Unity Game Project
 
-This is a Unity-based hyper-casual game project. The game includes various scripts to handle different game mechanics such as triggering confetti effects, rotating objects, and managing game areas.
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Scripts](#scripts)
-  - [AreaFalse](#areafalse)
-  - [Spinner](#spinner)
-  - [TriggerConfetti](#triggerconfetti)
-  - [FalseHyperCasual](#falsehypercasual)
-- [Contributing](#contributing)
-
-## Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/SavasTanriverdi/FalseHyperCasualGame.git
-    ```
-2. Open the project in Unity.
-
-## Usage
-
-- Attach the `AreaFalse` script to a GameObject with a Collider set as a trigger to deactivate a specified area when the player enters.
-- Attach the `Spinner` script to any GameObject to make it rotate based on specified angles and speed.
-- Attach the `TriggerConfetti` script to a GameObject with a Collider set as a trigger to activate multiple confetti GameObjects when the player enters.
-- Attach the `FalseHyperCasual` script to a GameObject to ensure all confetti GameObjects are deactivated at the start of the game.
+This is a Unity game project developed using C#. The project includes several scripts to control different game behaviors.
 
 ## Scripts
 
-### AreaFalse
-
-This script deactivates a specified area when the player enters the trigger.
+### FalseVideo.cs
+This script controls the activation of a video player object.
 
 ```csharp
 using System;
 using UnityEngine;
 
-public class AreaFalse : MonoBehaviour
+public class FalseVideo : MonoBehaviour
 {
-    [SerializeField] private GameObject area;
+    [SerializeField] private GameObject videoPlayer;
 
-    private void OnTriggerEnter(Collider other)
+    private void Awake()
     {
-        if (other.gameObject.tag == "Player")
+        videoPlayer.SetActive(false);
+    }
+}
+```
+
+### FlyAtPlayer.cs
+This script makes an object fly towards the player and destroys it when it reaches the player.
+
+```csharp
+using System;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class FlyAtPlayer : MonoBehaviour
+{
+    [SerializeField] Transform player;
+    Vector3 playerPosition;
+    [SerializeField] float speed = 0f;
+
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        playerPosition = player.position;
+    }
+
+    private void Update()
+    {
+        MoveToPlayer();
+        DestroyWhenReached();
+    }
+
+    private void MoveToPlayer()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, playerPosition, Time.deltaTime * speed);
+    }
+
+    private void DestroyWhenReached()
+    {
+        if (transform.position == playerPosition)
         {
-            area.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }
 ```
 
-### Spinner
-
-This script rotates a GameObject based on specified angles and speed.
+### Spinner.cs
+This script rotates an object based on specified angles and speed.
 
 ```csharp
 using UnityEngine;
@@ -74,88 +88,57 @@ public class Spinner : MonoBehaviour
 }
 ```
 
-### TriggerConfetti
-
-This script activates multiple confetti GameObjects when the player enters the trigger.
+### Mover.cs
+This script allows the player to move using the WASD or arrow keys and prints instructions at the start.
 
 ```csharp
 using UnityEngine;
 
-public class TriggerConfetti : MonoBehaviour
+public class Mover : MonoBehaviour
 {
-    [SerializeField] private GameObject confetti1;
-    [SerializeField] private GameObject confetti2;
-    [SerializeField] private GameObject confetti3;
-    [SerializeField] private GameObject confetti4;
-    [SerializeField] private GameObject confetti5;
-    [SerializeField] private GameObject confetti6;
-    [SerializeField] private GameObject confetti7;
-    [SerializeField] private GameObject confetti8;
-    [SerializeField] private GameObject confetti9;
-    [SerializeField] private GameObject confetti10;
-    [SerializeField] private GameObject confetti11;
+    [SerializeField] float moveSpeed = 10f;
 
-    private void OnTriggerEnter(Collider other)
+    void Start()
     {
-        confetti1.SetActive(true);
-        confetti2.SetActive(true);
-        confetti3.SetActive(true);
-        confetti4.SetActive(true);
-        confetti5.SetActive(true);
-        confetti6.SetActive(true);
-        confetti7.SetActive(true);
-        confetti8.SetActive(true);
-        confetti9.SetActive(true);
-        confetti10.SetActive(true);
-        confetti11.SetActive(true);
+        PrintInstructions();
+    }
+
+    void Update()
+    {
+        MovePlayer();
+    }
+
+    void PrintInstructions()
+    {
+        Debug.Log("Welcome to the game");
+        Debug.Log("Move your player with WASD or arrow keys");
+        Debug.Log("Don't hit the walls!");
+    }
+
+    void MovePlayer()
+    {
+        float xValue = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        float yValue = 0f;
+        float zValue = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+
+        transform.Translate(xValue, yValue, zValue);
     }
 }
 ```
 
-### FalseHyperCasual
+## How to Use
+1. Clone the repository.
+2. Open the project in Unity.
+3. Attach the scripts to the appropriate GameObjects in your scene.
+4. Configure the serialized fields in the Unity Editor as needed.
+5. Play the game and enjoy!
 
-This script ensures all confetti GameObjects are deactivated at the start of the game.
-
-```csharp
-using System;
-using UnityEngine;
-
-public class FalseHyperCasual : MonoBehaviour
-{
-    [SerializeField] private GameObject confetti1;
-    [SerializeField] private GameObject confetti2;
-    [SerializeField] private GameObject confetti3;
-    [SerializeField] private GameObject confetti4;
-    [SerializeField] private GameObject confetti5;
-    [SerializeField] private GameObject confetti6;
-    [SerializeField] private GameObject confetti7;
-    [SerializeField] private GameObject confetti8;
-    [SerializeField] private GameObject confetti9;
-    [SerializeField] private GameObject confetti10;
-    [SerializeField] private GameObject confetti11;
-
-    private void Awake()
-    {
-        confetti1.SetActive(false);
-        confetti2.SetActive(false);
-        confetti3.SetActive(false);
-        confetti4.SetActive(false);
-        confetti5.SetActive(false);
-        confetti6.SetActive(false);
-        confetti7.SetActive(false);
-        confetti8.SetActive(false);
-        confetti9.SetActive(false);
-        confetti10.SetActive(false);
-        confetti11.SetActive(false);
-    }
-}
-```
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any changes.
+## Requirements
+- Unity 2020.3 or later
+- .NET Framework 4.7.1 or later
 
 ## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License.
 ```
+
+This `README.md` provides an overview of the project, descriptions of the scripts, and instructions on how to use the project.
