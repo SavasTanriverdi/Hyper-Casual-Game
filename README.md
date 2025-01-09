@@ -1,7 +1,5 @@
-Tabii, işte projeniz için kapsamlı bir `README.md` içeriği:
-
 ```markdown
-# False Hyper Casual Game
+# Hyper Casual Game
 
 This is a Unity-based hyper-casual game project. The game includes various scripts to handle different game mechanics such as triggering confetti effects, rotating objects, and managing game areas.
 
@@ -15,7 +13,6 @@ This is a Unity-based hyper-casual game project. The game includes various scrip
   - [TriggerConfetti](#triggerconfetti)
   - [FalseHyperCasual](#falsehypercasual)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
